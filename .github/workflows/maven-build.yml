@@ -11,25 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout code
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # Step 2: Set up JDK 1.8 (Temurin) with Maven cache
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '8'
-        cache: maven
+      # Step 2: Set up JDK 1.8
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+          cache: maven
 
-    # Step 3: Build and run tests
-    - name: Build with Maven
-      run: mvn -B clean test
+      # Step 3: Build and run tests
+      - name: Build with Maven
+        run: mvn -B clean package
 
-    # Step 4: Upload test reports (optional)
-    - name: Upload test results
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: target/surefire-reports/
+      # Step 4: Upload the JAR artifact
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-project-jar
+          path: target/*.jar
+
+      # Step 5: Upload test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: target/surefire-reports/
