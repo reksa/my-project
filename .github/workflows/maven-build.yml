@@ -24,17 +24,44 @@ jobs:
           cache: maven
 
       # Step 3: Build and run tests
-      - name: Build with Maven
+      - name: Build and run tests
         run: mvn -B clean package
 
-      # Step 4: Upload the JAR artifact
+      # Step 4: Run Checkstyle
+      - name: Run Checkstyle
+        run: mvn checkstyle:check
+      - name: Upload Checkstyle report
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-report
+          path: target/checkstyle-result.xml
+
+      # Step 5: Run PMD
+      - name: Run PMD
+        run: mvn pmd:check
+      - name: Upload PMD report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmd-report
+          path: target/pmd.xml
+
+      # Step 6: Run SpotBugs
+      - name: Run SpotBugs
+        run: mvn spotbugs:check
+      - name: Upload SpotBugs report
+        uses: actions/upload-artifact@v4
+        with:
+          name: spotbugs-report
+          path: target/spotbugsXml.xml
+
+      # Step 7: Upload JAR artifact
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: demo-project-jar
           path: target/*.jar
 
-      # Step 5: Upload test results
+      # Step 8: Upload test results
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
