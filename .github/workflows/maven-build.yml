@@ -91,11 +91,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-     - name: SonarQube Scan
-       env:
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       run: |
-        mvn sonar:sonar \
-        -Dsonar.projectKey=myapp \
-        -Dsonar.host.url=${{ secrets.SONAR_HOST }} \
-        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarCloud Analysis
+        run: mvn -B verify sonar:sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORG: ${{ secrets.SONAR_ORG }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
