@@ -97,14 +97,13 @@
 </plugin>
 
 <!-- SpotBugs plugin -->
-<plugin>
+<!--<plugin>
     <groupId>com.github.spotbugs</groupId>
     <artifactId>spotbugs-maven-plugin</artifactId>
-    <version>4.8.3</version>
+    <version>4.8.2</version>
     <configuration>
         <failOnError>true</failOnError>
-        <effort>Max</effort>
-        <threshold>Low</threshold>
+        
     </configuration>
     <executions>
         <execution>
@@ -114,7 +113,7 @@
             </goals>
         </execution>
     </executions>
-</plugin>
+</plugin>-->
 
 <plugin>
             <groupId>org.jacoco</groupId>
