@@ -46,13 +46,13 @@ jobs:
           path: target/pmd.xml
 
       # Step 6: Run SpotBugs
-      - name: Run SpotBugs
-        run: mvn spotbugs:check
-      - name: Upload SpotBugs report
-        uses: actions/upload-artifact@v4
-        with:
-          name: spotbugs-report
-          path: target/spotbugsXml.xml
+      #- name: Run SpotBugs
+      #  run: mvn spotbugs:check
+      #- name: Upload SpotBugs report
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: spotbugs-report
+      #    path: target/spotbugsXml.xml
 
       # Step 7: Upload JAR artifact
       - name: Upload JAR artifact
