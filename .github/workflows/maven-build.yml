@@ -91,10 +91,15 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Run SonarCloud Analysis
-        run: mvn -B verify sonar:sonar
+      - name: Run SonarCloud Analysis (Java 8 Compatible Plugin)
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: SonarCloud Quality Gate Check
+        uses: SonarSource/sonarcloud-quality-gate-action@v1
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
